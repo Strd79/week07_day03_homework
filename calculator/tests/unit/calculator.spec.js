@@ -40,4 +40,31 @@ describe('App.vue', () => {
     expect(wrapper.vm.runningTotal).to.equal(3)
   })
 
+  it('should concatenate multiple number button clicks', () => {
+    wrapper.vm.numberClick('1');
+    wrapper.vm.numberClick('0');
+    wrapper.vm.numberClick('0');
+    expect(wrapper.vm.runningTotal).to.equal(100)
+  })
+
+  it('should chain multiple operations together', () => {
+    wrapper.vm.numberClick('5');
+    wrapper.vm.operatorClick('+');
+    wrapper.vm.numberClick('5');
+    wrapper.vm.operatorClick('/');
+    wrapper.vm.numberClick('5');
+    wrapper.vm.operatorClick('=');
+    expect(wrapper.vm.runningTotal).to.equal(2)
+  })
+
+  it('should clear the running total without affecting the calculation', () => {
+    wrapper.vm.numberClick('9');
+    wrapper.vm.operatorClick('+');
+    wrapper.vm.numberClick('1');
+    wrapper.vm.clearClick();
+    expect(wrapper.vm.previousTotal).to.equal(9);
+    expect(wrapper.vm.previousOperator).to.equal('+');
+    expect(wrapper.vm.runningTotal).to.equal(0);
+  })
+
 })
