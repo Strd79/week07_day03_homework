@@ -47,12 +47,49 @@ describe('calculator', () => {
     cy.get('.display').should('contain', '-7');
   })
 
+  it('should display a positive number', () => {
+    cy.get('#number9').click();
+    cy.get('#operator_add').click();
+    cy.get('#number5').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '14')
+  })
+
   it('should display a decimal number', () => {
     cy.get('#number6').click();
     cy.get('#operator_divide').click();
     cy.get('#number7').click();
     cy.get('#operator_equals').click();
     cy.get('.display').should('contain', '0.8571')
+  })
+
+  it('should display a negative number', () => {
+    cy.get('#number8').click();
+    cy.get('#operator_subtract').click();
+    cy.get('#number1').click();
+    cy.get('#number6').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '-8');
+  })
+
+  it('should display a large number', () => {
+    cy.get('#number4').click();
+    cy.get('#number0').click();
+    cy.get('#number0').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#number3').click();
+    cy.get('#number2').click();
+    cy.get('#number8').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '131200')
+  })
+
+  it('should return error if you try to divide by zero', () => {
+    cy.get('#number7').click();
+    cy.get('#operator_divide').click();
+    cy.get('#number0').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', 'error')
   })
 
 })
